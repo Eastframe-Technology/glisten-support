@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Free star filter online: add cross filter sparkle to a photo</title>
+<meta name="description" content="Free browser tool: add a star filter or cross filter sparkle to one photo, with controls for strength and length, then download it. Your photo stays on your device.">
+<link rel="canonical" href="https://eastframe-technology.github.io/glisten-support/tools/star-filter.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Free star filter for photos">
+<meta property="og:description" content="Free browser tool: add a star filter or cross filter sparkle to one photo, with controls for strength and length, then download it. Your photo stays on your device.">
+<meta property="og:image" content="https://eastframe-technology.github.io/glisten-support/img/og.jpg">
+<meta property="og:url" content="https://eastframe-technology.github.io/glisten-support/tools/star-filter.html">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../icon.png">
+<link rel="stylesheet" href="../style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is my photo uploaded?","acceptedAnswer":{"@type":"Answer","text":"No. The browser reads your photo into a canvas on this page and the effect runs on your own device. Nothing is sent anywhere, and the photo is gone when you close the tab. You can turn off your connection after the page loads and it keeps working."}},{"@type":"Question","name":"Why does nothing sparkle?","acceptedAnswer":{"@type":"Answer","text":"The effect only grows from small bright spots. Raise Sensitivity to pick up dimmer ones. A picture with no highlights, like a flat daytime shot, will not change much."}},{"@type":"Question","name":"Why did my photo turn white?","acceptedAnswer":{"@type":"Answer","text":"Too many highlights are adding up. Lower Sensitivity or Strength, or use fewer points. Crowded crystal and sequins need much less than a few street lamps."}},{"@type":"Question","name":"What size is the download?","acceptedAnswer":{"@type":"Answer","text":"A JPEG at your photo's own size, up to 4096 pixels on the long side. Bigger photos are scaled down to that. The preview works on a smaller copy, so the saved file can look slightly different."}},{"@type":"Question","name":"Does it keep my photo's date and location?","acceptedAnswer":{"@type":"Answer","text":"No. The file is drawn fresh from the canvas, so camera data such as date and location is not copied into the download."}},{"@type":"Question","name":"Which file types work?","acceptedAnswer":{"@type":"Answer","text":"Whatever your browser can open, which means JPEG, PNG and WebP almost everywhere. Some browsers cannot open HEIC photos from an iPhone. If yours refuses one, convert it to JPEG first."}},{"@type":"Question","name":"Can it do video?","acceptedAnswer":{"@type":"Answer","text":"Not here. The Glisten app for Android does, with the stars twinkling over time and the sound kept."}}]}
+</script>
+</head>
+<body>
+<main>
+  <nav><a class="home" href="../"><img src="../icon.png" alt="" width="24" height="24">Glisten</a><a href="../tools/star-filter.html">Star filter tool</a><a href="../guides/star-filter-look.html">Guide</a><a href="../index.html#support">Support</a></nav>
+
+  <h1>Star filter for your photo</h1>
+  <p class="lead">Add cross filter rays and sparkle to the bright spots of one photo, then download it. It runs in your browser, so your photo never leaves your device.</p>
+
+  <section aria-label="Star filter tool">
+  <div class="stage" id="stage"><canvas id="view" width="1280" height="853" role="img" aria-label="Preview of the photo with the effect"></canvas></div>
+  <div class="actions">
+    <label class="btn" for="file">Choose a photo</label><input class="vh" type="file" id="file" accept="image/*">
+    <button type="button" class="btn go" id="download" disabled>Download JPEG</button>
+    <button type="button" class="btn" id="compare" disabled>Hold to compare</button>
+    <button type="button" class="btn" id="sample">Sample photo</button>
+  </div>
+  <p id="status" aria-live="polite"></p>
+  <p id="hint" hidden>No small bright spots found. Raise Sensitivity, or try a photo with lamps, gems or reflections.</p>
+  <noscript><p id="hint2">This tool needs JavaScript, because it runs entirely in your browser.</p></noscript>
+
+  <div class="card">
+    <div class="lab" style="margin-top:0">Style</div>
+    <div class="seg" id="styles">
+      <button type="button" data-s="cross" aria-pressed="true">Cross</button>
+      <button type="button" data-s="twinkle" aria-pressed="false">Twinkle</button>
+      <button type="button" data-s="starburst" aria-pressed="false">Starburst</button>
+      <button type="button" data-s="glow" aria-pressed="false">Glow</button>
+    </div>
+    <div class="lab">Points</div>
+    <div class="seg" id="points">
+      <button type="button" data-n="0">Off</button>
+      <button type="button" data-n="2">2</button>
+      <button type="button" data-n="4">4</button>
+      <button type="button" data-n="6">6</button>
+      <button type="button" data-n="8">8</button>
+    </div>
+    <div class="controls">
+      <label class="ctrl"><span>Strength</span><input type="range" data-p="rayStrength" min="0" max="2" step="0.01"></label>
+      <label class="ctrl"><span>Ray length</span><input type="range" data-p="length" min="0.05" max="1" step="0.01"></label>
+      <label class="ctrl"><span>Angle</span><input type="range" data-p="angle" min="0" max="180" step="1"></label>
+      <label class="ctrl"><span>Sensitivity</span><input type="range" data-p="sensitivity" min="0" max="1" step="0.01"></label>
+      <label class="ctrl"><span>Glow</span><input type="range" data-p="glow" min="0" max="1" step="0.01"></label>
+      <label class="ctrl"><span>Glitter</span><input type="range" data-p="glitter" min="0" max="1" step="0.01"></label>
+      <label class="ctrl"><span>Rainbow</span><input type="range" data-p="rainbow" min="0" max="1" step="0.01"></label>
+    </div>
+  </div>
+  </section>
+  <p class="after">This tool does one photo. <a href="https://play.google.com/store/apps/details?id=com.eastframe.glisten">Glisten for Android</a> also does video, with the stars twinkling live and the sound kept.</p>
+
+  <h2>How it works</h2>
+  <p>A real star filter is a piece of glass with fine lines cut into it. Those lines spread the light of each bright point into rays. The tool imitates that in five steps, the same ones the Glisten app uses:</p>
+  <ol>
+    <li><strong>Find the highlights.</strong> A spot counts when it is brighter than the Sensitivity setting and also stands out from a ring around it. That second test stops white walls and skies from flaring.</li>
+    <li><strong>Draw the rays.</strong> Each highlight is streaked along each direction and fades with distance. Four points means two crossing directions.</li>
+    <li><strong>Add a soft glow</strong> around the highlights with a small blur.</li>
+    <li><strong>Add glitter stars</strong> on the strongest highlights.</li>
+    <li><strong>Blend it in.</strong> For each color channel: <code>result = 1 − (1 − photo) × e<sup>−added</sup></code>, with values from 0 to 1. Light can only brighten the picture, and it eases into white instead of clipping hard.</li>
+  </ol>
+
+  <h2>Worked example</h2>
+  <p>Take a pixel with a value of 0.60 in the photo, and say the rays add 0.50 at that spot. The result is 1 − (1 − 0.60) × e<sup>−0.50</sup> = 1 − 0.40 × 0.607 = 0.76. So a mid-tone becomes noticeably brighter. A pixel already at 1.00 stays at 1.00, and one at 0 with the same light added rises to 0.39.</p>
+  <p>To try it on the sample photo, start with Cross. Then raise Strength until the chandelier turns white, and bring it back down. That is the usual way to find the right setting: go too far, then back off.</p>
+
+  <h2>Limits</h2>
+  <ul>
+    <li>One photo at a time, and one fixed moment. Twinkling needs video, which is what the app is for.</li>
+    <li>It is simpler than the app. The renderer runs on the processor rather than the graphics chip, so a very large photo can take a few seconds to save.</li>
+    <li>Up to 4096 pixels on the long side.</li>
+    <li>No hand-placed stars. If your picture has no highlights, it has little to work from.</li>
+  </ul>
+
+  <h2>Frequently asked</h2>
+  <div class="card faq">
+    <h3>Is my photo uploaded?</h3>
+    <p>No. The browser reads your photo into a canvas on this page and the effect runs on your own device. Nothing is sent anywhere, and the photo is gone when you close the tab. You can turn off your connection after the page loads and it keeps working.</p>
+    <h3>Why does nothing sparkle?</h3>
+    <p>The effect only grows from small bright spots. Raise Sensitivity to pick up dimmer ones. A picture with no highlights, like a flat daytime shot, will not change much.</p>
+    <h3>Why did my photo turn white?</h3>
+    <p>Too many highlights are adding up. Lower Sensitivity or Strength, or use fewer points. Crowded crystal and sequins need much less than a few street lamps.</p>
+    <h3>What size is the download?</h3>
+    <p>A JPEG at your photo's own size, up to 4096 pixels on the long side. Bigger photos are scaled down to that. The preview works on a smaller copy, so the saved file can look slightly different.</p>
+    <h3>Does it keep my photo's date and location?</h3>
+    <p>No. The file is drawn fresh from the canvas, so camera data such as date and location is not copied into the download.</p>
+    <h3>Which file types work?</h3>
+    <p>Whatever your browser can open, which means JPEG, PNG and WebP almost everywhere. Some browsers cannot open HEIC photos from an iPhone. If yours refuses one, convert it to JPEG first.</p>
+    <h3>Can it do video?</h3>
+    <p>Not here. The <a href="https://play.google.com/store/apps/details?id=com.eastframe.glisten">Glisten app for Android</a> does, with the stars twinkling over time and the sound kept.</p>
+  </div>
+
+  <p>Next: <a href="../guides/star-filter-look.html">which photos work best with a star filter, and how to shoot them</a>.</p>
+  <p class="note">Sample photo: <a href="https://commons.wikimedia.org/wiki/File:Crystal_Chandelier_Garden_(Unsplash).jpg">Crystal Chandelier Garden</a> by Amanda Kerr, CC0.</p>
+
+  <footer>© 2026 Eastframe Technology LLC · <a href="../privacy.html">Privacy policy</a> · <a href="../#support">Support</a></footer>
+</main>
+<script src="star-filter.js"></script>
+<script src="star-filter-ui.js"></script>
+</body>
+</html>
